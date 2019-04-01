@@ -91,6 +91,20 @@ app.post('/movies',function(req,res){
       error:true
     });
   }
+  if(!req.body.ID){
+    return res.status(501).json({
+      message: "ID is missing, it is mandatory!",
+      error:true
+    });
+  }
+  for(let i=0;i<global.movies.length;i++){
+    if(global.movies[i].ID === parseInt(req.body.ID)){
+      return res.status(501).json({
+        message: "ID is existing already!",
+        error:true
+      });
+    }
+  }
   global.movies.push(req.body);
   return res.status(200).json({
     message: "Success",
